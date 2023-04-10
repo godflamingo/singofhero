@@ -34,7 +34,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
             "type": "vless",
             "tag": "vless-in",
             "listen": "::",
-            "listen_port": $port,
+            "listen_port": 443,
             "sniff": true,
             "sniff_override_destination": true,
             "users": [
