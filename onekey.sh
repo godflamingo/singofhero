@@ -25,64 +25,46 @@ private_key=$(echo $keys | awk -F " " '{print $2}')
 public_key=$(echo $keys | awk -F " " '{print $4}')
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
 {
-    "log": {
-        "level": "trace",
-        "timestamp": true
-    },
-    "inbounds": [
+  "log": {
+    "level": "info"
+  },
+  "inbounds": [
+    {
+      "type": "vless",
+      "tag": "vless-in",
+      "listen": "127.0.0.1",
+      "listen_port": 443,
+      "proxy_protocol": true,
+      "proxy_protocol_accept_no_header": false,
+      "users": [
         {
-            "type": "vless",
-            "tag": "vless-in",
-            "listen": "::",
-            "listen_port": 443,
-            "sniff": true,
-            "sniff_override_destination": true,
-            "users": [
-                {
-                    "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
-                    "flow": "xtls-rprx-vision"
-                }
-            ],
-            "tls": {
-                "enabled": true,
-                "server_name": "$dest_server",
-                "reality": {
-                    "enabled": true,
-                    "handshake": {
-                        "server": "$dest_server",
-                        "server_port": 443
-                    },
-                    "private_key": "$private_key",
-                    "short_id": [
-                        "$short_id"
-                    ]
-                }
-            }
+          "name": "imlala",
+          "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
         }
-    ],
-    "outbounds": [
-        {
-            "type": "direct",
-            "tag": "direct"
-        },
-        {
-            "type": "block",
-            "tag": "block"
+      ],
+      "tls": {
+        "enabled": true,
+        "server_name": "www.docker.com",
+        "reality": {
+          "enabled": true,
+          "handshake": {
+            "server": "www.docker.com",
+            "server_port": 443
+          },
+          "private_key": "CFm4JMiU6-7d79yJ0H49vSQUpLK6YWrnqJdeLDR6K50",
+          "short_id": [
+            "5d2e3ed92cf8a73b"
+          ]
         }
-    ],
-    "route": {
-        "rules": [
-            {
-                "geoip": "cn",
-                "outbound": "block"
-            },
-            {
-                "geosite": "category-ads-all",
-                "outbound": "block"
-            }
-        ],
-        "final": "direct"
+      }
     }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ]
 }
 EOF
 # 生成分享链接
