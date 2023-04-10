@@ -17,7 +17,7 @@ mv singo ${RANDOM_NAME}
 install -m 755 ${RANDOM_NAME} ${BINARY_FILE_PATH}
 chmod +x ${BINARY_FILE_PATH}
 # Reality short-id
-dest_server="www.microsoft.com"
+dest_server="www.docker.com"
 short_id=$(openssl rand -hex 8)
 # Reality 公私钥
 keys=$(${BINARY_FILE_PATH} generate reality-keypair)
@@ -33,7 +33,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
       "type": "vless",
       "tag": "vless-in",
       "listen": "127.0.0.1",
-      "listen_port": 23323,
+      "listen_port": 443,
       "proxy_protocol": true,
       "proxy_protocol_accept_no_header": false,
       "users": [
@@ -51,9 +51,9 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
             "server": "www.docker.com",
             "server_port": 443
           },
-          "private_key": "CFm4JMiU6-7d79yJ0H49vSQUpLK6YWrnqJdeLDR6K50",
+          "private_key": "$private_key",
           "short_id": [
-            "5d2e3ed92cf8a73b"
+            "$short_id"
           ]
         }
       }
@@ -74,5 +74,6 @@ echo public_key= $public_key
 sed -i "s/$short_id/$short_id/g" ${CONFIG_FILE_PATH}/config.json
 sed -i "s/$private_key/$private_key/g" ${CONFIG_FILE_PATH}/config.json
 sed -i "s/$dest_server/$dest_server/g" ${CONFIG_FILE_PATH}/config.json
+cat -n ${CONFIG_FILE_PATH}/config.json
 # Let's get start
 ${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json
