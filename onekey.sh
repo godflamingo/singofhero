@@ -18,12 +18,11 @@ install -m 755 ${RANDOM_NAME} ${BINARY_FILE_PATH}
 chmod +x ${BINARY_FILE_PATH}
 
 # Reality short-id
-short_id=$(openssl rand -hex 8)
+short_id=59bf90908ee86816
 
 # Reality 公私钥
-keys=$(${BINARY_FILE_PATH} generate reality-keypair)
-private_key=$(echo $keys | awk -F " " '{print $2}')
-public_key=$(echo $keys | awk -F " " '{print $4}')
+private_key=kP1DEDaS3-_2H3UMtkB2LkHA4o_VpFxBGxcOWwpQt30
+public_key=lNrDyiwsouNG2Q2cSWBCnXrju2-Kmtseke9uGwsDDDQ
 port="23323"
 dest_server="www.microsoft.com"
 UUID="54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
@@ -93,13 +92,5 @@ EOF
 echo short_id= $short_id
 echo private_key= $private_key
 echo public_key= $public_key
-echo 
-mkdir -p /usr/share/nginx/html
-wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
-unzip -o "/usr/share/nginx/Technology2.zip" -d /usr/share/nginx/html >/dev/null
-rm -f "/usr/share/nginx/Technology2.zip*"
-ls -a /usr/share/nginx/html/
-rm -rf /etc/nginx/sites-enabled/default
 # Let's get start
 ${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json &
-/bin/bash -c "envsubst '\$PORT,\$WS_PATH' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
