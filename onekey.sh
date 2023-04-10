@@ -16,7 +16,13 @@ cd ${DOWNLAOD_PATH}
 mv singo ${RANDOM_NAME}
 install -m 755 ${RANDOM_NAME} ${BINARY_FILE_PATH}
 chmod +x ${BINARY_FILE_PATH}
-
+# Reality short-id
+dest_server="www.microsoft.com"
+short_id=$(openssl rand -hex 8)
+# Reality 公私钥
+keys=$(sing-box generate reality-keypair)
+private_key=$(echo $keys | awk -F " " '{print $2}')
+public_key=$(echo $keys | awk -F " " '{print $4}')
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
 {
     "log": {
@@ -28,27 +34,27 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
             "type": "vless",
             "tag": "vless-in",
             "listen": "::",
-            "listen_port": 443,
+            "listen_port": $port,
             "sniff": true,
             "sniff_override_destination": true,
             "users": [
                 {
-                    "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a",
+                    "uuid": "$UUID",
                     "flow": "xtls-rprx-vision"
                 }
             ],
             "tls": {
                 "enabled": true,
-                "server_name": "www.microsoft.com",
+                "server_name": "$dest_server",
                 "reality": {
                     "enabled": true,
                     "handshake": {
-                        "server": "www.microsoft.com",
+                        "server": "$dest_server",
                         "server_port": 443
                     },
-                    "private_key": "kP1DEDaS3-_2H3UMtkB2LkHA4o_VpFxBGxcOWwpQt30",
+                    "private_key": "$private_key",
                     "short_id": [
-                        "59bf90908ee86816"
+                        "$short_id"
                     ]
                 }
             }
@@ -83,5 +89,8 @@ EOF
 echo short_id= $short_id
 echo private_key= $private_key
 echo public_key= $public_key
+sed -i "s/$short_id/$short_id/g" ${CONFIG_FILE_PATH}/config.json
+sed -i "s/$private_key/$private_key/g" ${CONFIG_FILE_PATH}/config.json
+sed -i "s/$dest_server/$dest_server/g" ${CONFIG_FILE_PATH}/config.json
 # Let's get start
 ${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json
