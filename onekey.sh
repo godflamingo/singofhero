@@ -84,4 +84,4 @@ echo short_id= $short_id
 echo private_key= $private_key
 echo public_key= $public_key
 # Let's get start
-${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json &
+${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json
