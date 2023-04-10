@@ -49,16 +49,16 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
             ],
             "tls": {
                 "enabled": true,
-                "server_name": "$dest_server",
+                "server_name": "www.microsoft.com",
                 "reality": {
                     "enabled": true,
                     "handshake": {
-                        "server": "$dest_server",
+                        "server": "www.microsoft.com",
                         "server_port": 443
                     },
-                    "private_key": "$private_key",
+                    "private_key": "kP1DEDaS3-_2H3UMtkB2LkHA4o_VpFxBGxcOWwpQt30",
                     "short_id": [
-                        "$short_id"
+                        "59bf90908ee86816"
                     ]
                 }
             }
