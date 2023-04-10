@@ -17,15 +17,6 @@ mv singo ${RANDOM_NAME}
 install -m 755 ${RANDOM_NAME} ${BINARY_FILE_PATH}
 chmod +x ${BINARY_FILE_PATH}
 
-# Reality short-id
-short_id=59bf90908ee86816
-
-# Reality 公私钥
-private_key=kP1DEDaS3-_2H3UMtkB2LkHA4o_VpFxBGxcOWwpQt30
-public_key=lNrDyiwsouNG2Q2cSWBCnXrju2-Kmtseke9uGwsDDDQ
-port="23323"
-dest_server="www.microsoft.com"
-UUID="54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
 {
     "log": {
