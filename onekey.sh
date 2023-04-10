@@ -20,7 +20,7 @@ chmod +x ${BINARY_FILE_PATH}
 dest_server="www.microsoft.com"
 short_id=$(openssl rand -hex 8)
 # Reality 公私钥
-keys=$(sing-box generate reality-keypair)
+keys=$(${BINARY_FILE_PATH} generate reality-keypair)
 private_key=$(echo $keys | awk -F " " '{print $2}')
 public_key=$(echo $keys | awk -F " " '{print $4}')
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
