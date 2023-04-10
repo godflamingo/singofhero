@@ -39,7 +39,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
             "sniff_override_destination": true,
             "users": [
                 {
-                    "uuid": "$UUID",
+                    "uuid": 54f87cfd-6c03-45ef-bb3d-9fdacec80a9a,
                     "flow": "xtls-rprx-vision"
                 }
             ],
