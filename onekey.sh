@@ -89,10 +89,11 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
     }
 }
 EOF
-    # 生成分享链接
-    share_link="vless://$UUID@$IP:$port?encryption=none&flow=xtls-rprx-vision&security=reality&sni=$dest_server&fp=chrome&pbk=$public_key&sid=$short_id&type=tcp&headerType=none#Misaka-Reality"
-    echo ${share_link} > /usr/share/nginx/share-link.txt
-    cat -n /usr/share/nginx/share-link.txt
+# 生成分享链接
+echo=$keys
+echo=$private_key
+echo=$public_key
+echo 
 mkdir -p /usr/share/nginx/html
 wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
 unzip -o "/usr/share/nginx/Technology2.zip" -d /usr/share/nginx/html >/dev/null
