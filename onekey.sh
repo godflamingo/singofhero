@@ -33,7 +33,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
       "type": "vless",
       "tag": "vless-in",
       "listen": "127.0.0.1",
-      "listen_port": 443,
+      "listen_port": 23323,
       "proxy_protocol": true,
       "proxy_protocol_accept_no_header": false,
       "users": [
