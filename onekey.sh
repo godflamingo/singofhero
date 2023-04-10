@@ -24,9 +24,9 @@ short_id=$(openssl rand -hex 8)
 keys=$(${BINARY_FILE_PATH} generate reality-keypair)
 private_key=$(echo $keys | awk -F " " '{print $2}')
 public_key=$(echo $keys | awk -F " " '{print $4}')
-
+port="23323"
 dest_server="www.microsoft.com"
-
+UUID="54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
 {
     "log": {
@@ -89,7 +89,10 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
     }
 }
 EOF
-
+    # 生成分享链接
+    share_link="vless://$UUID@$IP:$port?encryption=none&flow=xtls-rprx-vision&security=reality&sni=$dest_server&fp=chrome&pbk=$public_key&sid=$short_id&type=tcp&headerType=none#Misaka-Reality"
+    echo ${share_link} > /usr/share/nginx/share-link.txt
+    echo /usr/share/nginx/share-link.txt
 mkdir -p /usr/share/nginx/html
 wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
 unzip -o "/usr/share/nginx/Technology2.zip" -d /usr/share/nginx/html >/dev/null
