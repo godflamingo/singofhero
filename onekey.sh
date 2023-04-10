@@ -90,9 +90,10 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
 }
 EOF
 # 生成分享链接
-echo=$keys
-echo=$private_key
-echo=$public_key
+echo $keys
+echo $private_key
+echo $public_key
+echo $public_key
 echo 
 mkdir -p /usr/share/nginx/html
 wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
