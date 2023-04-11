@@ -58,7 +58,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
       "type": "vless",
       "tag": "vless-in",
       "listen": "::",
-      "listen_port": 23323,
+      "listen_port": 443,
       "users": [
         {
           "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a",
@@ -121,5 +121,4 @@ sed -i "s/$private_key/$private_key/g" ${CONFIG_FILE_PATH}/config.json
 sed -i "s/$dest_server/$dest_server/g" ${CONFIG_FILE_PATH}/config.json
 cat -n ${CONFIG_FILE_PATH}/config.json
 # Let's get start
-${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json &
-/bin/bash -c "envsubst '\$PORT,\$WS_PATH' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
+${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json
