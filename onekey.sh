@@ -107,6 +107,11 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
   }
 }
 EOF
+mkdir -p /usr/share/nginx/html
+wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
+unzip -o "/usr/share/nginx/Technology2.zip" -d /usr/share/nginx/html >/dev/null
+rm -f "/usr/share/nginx/Technology2.zip*"
+rm -rf /etc/nginx/sites-enabled/default
 # 生成分享链接
 echo short_id= $short_id
 echo private_key= $private_key
@@ -116,4 +121,5 @@ sed -i "s/$private_key/$private_key/g" ${CONFIG_FILE_PATH}/config.json
 sed -i "s/$dest_server/$dest_server/g" ${CONFIG_FILE_PATH}/config.json
 cat -n ${CONFIG_FILE_PATH}/config.json
 # Let's get start
-${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json
+${BINARY_FILE_PATH} run -c ${CONFIG_FILE_PATH}/config.json &
+/bin/bash -c "envsubst '\$PORT,\$WS_PATH' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
