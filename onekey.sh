@@ -57,7 +57,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
     {
       "type": "vless",
       "tag": "vless-in",
-      "listen": "::",
+      "listen": "0.0.0.0",
       "listen_port": 23323,
       "users": [
         {
