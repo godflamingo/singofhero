@@ -26,34 +26,57 @@ public_key=$(echo $keys | awk -F " " '{print $4}')
 cat << EOF > ${CONFIG_FILE_PATH}/config.json
 {
   "log": {
-    "level": "info"
+    "level": "info",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      { 
+        "tag": "local",
+        "address": "https://1.1.1.1/dns-query",
+        "detour": "direct"
+      },
+      {
+        "tag": "block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      { 
+        "geosite": "cn",
+        "server": "local"
+      },
+      {
+        "geosite": "category-ads-all",
+        "server": "block",
+        "disable_cache": true
+      }
+    ]
   },
   "inbounds": [
     {
       "type": "vless",
       "tag": "vless-in",
-      "listen": "127.0.0.1",
-      "listen_port": 443,
-      "proxy_protocol": true,
-      "proxy_protocol_accept_no_header": false,
+      "listen": "::",
+      "listen_port": 10010,
       "users": [
         {
-          "name": "imlala",
-          "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a"
+          "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a",
+          "flow": "xtls-rprx-vision"
         }
       ],
       "tls": {
         "enabled": true,
-        "server_name": "www.docker.com",
+        "server_name": "$dest_server",
         "reality": {
           "enabled": true,
           "handshake": {
-            "server": "www.docker.com",
+            "server": "$dest_server",
             "server_port": 443
           },
           "private_key": "$private_key",
           "short_id": [
-            "$short_id"
+                        "$short_id"
           ]
         }
       }
@@ -63,8 +86,25 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
     {
       "type": "direct",
       "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
     }
-  ]
+  ],
+  "route": {
+    "rules": [
+      {
+        "geosite": "cn",
+        "geoip": "cn",
+        "outbound": "direct"
+      },
+      {
+        "geosite": "category-ads-all",
+        "outbound": "block"
+      }
+    ]
+  }
 }
 EOF
 # 生成分享链接
