@@ -113,7 +113,6 @@ mkdir -p /usr/share/nginx/html
 wget -c -P /usr/share/nginx "https://raw.githubusercontent.com/godflamingo/template/main/Technology2.zip" >/dev/null
 unzip -o "/usr/share/nginx/Technology2.zip" -d /usr/share/nginx/html >/dev/null
 rm -f "/usr/share/nginx/Technology2.zip*"
-rm -rf /etc/nginx/sites-enabled/default
 # 生成分享链接
 echo short_id= $short_id
 echo private_key= $private_key
