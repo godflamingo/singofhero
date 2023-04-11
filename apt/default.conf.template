@@ -1,14 +1,3 @@
-  server {
-    listen $PORT default_server;
-
-    location / {
-      root /usr/share/nginx/html;
-      index  index.html index.htm;
-    }
-        
-}
-
-
 stream {
         map $ssl_preread_server_name $backend {
                 www.docker.com singbox;
