@@ -58,7 +58,7 @@ cat << EOF > ${CONFIG_FILE_PATH}/config.json
       "type": "vless",
       "tag": "vless-in",
       "listen": "::",
-      "listen_port": 443,
+      "listen_port": 23323,
       "users": [
         {
           "uuid": "54f87cfd-6c03-45ef-bb3d-9fdacec80a9a",
